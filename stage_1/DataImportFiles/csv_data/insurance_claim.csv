@@ -1,0 +1,501 @@
+claim_id,invoice_id,insurance_id,claim_status
+1,1,125,Rejected
+2,2,160,Partially Approved
+3,3,143,Rejected
+4,4,360,Partially Approved
+5,5,365,Pending
+6,6,395,Approved
+7,7,47,Partially Approved
+8,8,243,Partially Approved
+9,9,65,Approved
+10,10,339,Partially Approved
+11,11,328,Pending
+12,12,186,Pending
+13,13,340,Pending
+14,14,333,Pending
+15,15,496,Approved
+16,16,415,Partially Approved
+17,17,249,Pending
+18,18,13,Partially Approved
+19,19,31,Rejected
+20,20,233,Pending
+21,21,148,Partially Approved
+22,22,445,Approved
+23,23,405,Pending
+24,24,339,Pending
+25,25,451,Pending
+26,26,283,Partially Approved
+27,27,347,Partially Approved
+28,28,443,Pending
+29,29,318,Approved
+30,30,3,Rejected
+31,31,10,Pending
+32,32,23,Approved
+33,33,324,Partially Approved
+34,34,346,Rejected
+35,35,387,Approved
+36,36,312,Pending
+37,37,171,Partially Approved
+38,38,452,Rejected
+39,39,399,Pending
+40,40,412,Partially Approved
+41,41,384,Pending
+42,42,234,Partially Approved
+43,43,255,Rejected
+44,44,343,Rejected
+45,45,153,Rejected
+46,46,448,Pending
+47,47,485,Pending
+48,48,234,Pending
+49,49,393,Partially Approved
+50,50,332,Rejected
+51,51,463,Approved
+52,52,150,Rejected
+53,53,443,Partially Approved
+54,54,377,Approved
+55,55,229,Partially Approved
+56,56,467,Partially Approved
+57,57,496,Rejected
+58,58,134,Rejected
+59,59,489,Pending
+60,60,392,Approved
+61,61,17,Partially Approved
+62,62,485,Approved
+63,63,194,Rejected
+64,64,51,Approved
+65,65,353,Partially Approved
+66,66,348,Rejected
+67,67,267,Rejected
+68,68,380,Rejected
+69,69,150,Partially Approved
+70,70,494,Approved
+71,71,355,Rejected
+72,72,182,Partially Approved
+73,73,421,Approved
+74,74,177,Partially Approved
+75,75,165,Rejected
+76,76,275,Approved
+77,77,145,Approved
+78,78,11,Rejected
+79,79,470,Approved
+80,80,405,Pending
+81,81,458,Partially Approved
+82,82,329,Partially Approved
+83,83,125,Approved
+84,84,425,Partially Approved
+85,85,412,Approved
+86,86,99,Partially Approved
+87,87,404,Approved
+88,88,44,Pending
+89,89,37,Rejected
+90,90,190,Partially Approved
+91,91,492,Pending
+92,92,411,Rejected
+93,93,105,Rejected
+94,94,134,Rejected
+95,95,395,Rejected
+96,96,234,Pending
+97,97,355,Approved
+98,98,429,Approved
+99,99,345,Partially Approved
+100,100,496,Approved
+101,101,7,Rejected
+102,102,75,Approved
+103,103,70,Rejected
+104,104,77,Approved
+105,105,156,Pending
+106,106,122,Rejected
+107,107,13,Rejected
+108,108,211,Approved
+109,109,210,Approved
+110,110,445,Approved
+111,111,496,Approved
+112,112,399,Pending
+113,113,236,Pending
+114,114,203,Partially Approved
+115,115,474,Approved
+116,116,25,Pending
+117,117,10,Partially Approved
+118,118,282,Pending
+119,119,197,Pending
+120,120,41,Pending
+121,121,377,Rejected
+122,122,285,Approved
+123,123,241,Pending
+124,124,365,Approved
+125,125,484,Rejected
+126,126,82,Pending
+127,127,66,Approved
+128,128,329,Pending
+129,129,444,Rejected
+130,130,311,Approved
+131,131,380,Pending
+132,132,142,Partially Approved
+133,133,167,Rejected
+134,134,272,Approved
+135,135,214,Partially Approved
+136,136,82,Rejected
+137,137,479,Partially Approved
+138,138,10,Approved
+139,139,34,Approved
+140,140,76,Approved
+141,141,326,Approved
+142,142,449,Approved
+143,143,140,Pending
+144,144,301,Rejected
+145,145,383,Pending
+146,146,490,Rejected
+147,147,123,Pending
+148,148,199,Rejected
+149,149,434,Pending
+150,150,125,Rejected
+151,151,143,Pending
+152,152,155,Partially Approved
+153,153,101,Rejected
+154,154,59,Partially Approved
+155,155,302,Partially Approved
+156,156,480,Partially Approved
+157,157,256,Partially Approved
+158,158,128,Rejected
+159,159,139,Rejected
+160,160,91,Pending
+161,161,346,Rejected
+162,162,227,Rejected
+163,163,49,Approved
+164,164,160,Partially Approved
+165,165,205,Partially Approved
+166,166,35,Approved
+167,167,313,Pending
+168,168,190,Pending
+169,169,367,Partially Approved
+170,170,197,Approved
+171,171,406,Rejected
+172,172,193,Approved
+173,173,222,Partially Approved
+174,174,242,Approved
+175,175,236,Approved
+176,176,70,Approved
+177,177,211,Rejected
+178,178,316,Partially Approved
+179,179,459,Approved
+180,180,4,Rejected
+181,181,368,Pending
+182,182,193,Partially Approved
+183,183,79,Pending
+184,184,297,Pending
+185,185,37,Pending
+186,186,305,Pending
+187,187,101,Approved
+188,188,235,Rejected
+189,189,98,Approved
+190,190,374,Rejected
+191,191,263,Approved
+192,192,449,Pending
+193,193,95,Pending
+194,194,4,Partially Approved
+195,195,265,Partially Approved
+196,196,1,Rejected
+197,197,135,Rejected
+198,198,453,Rejected
+199,199,317,Partially Approved
+200,200,341,Partially Approved
+201,201,424,Approved
+202,202,127,Approved
+203,203,273,Partially Approved
+204,204,140,Partially Approved
+205,205,312,Pending
+206,206,333,Approved
+207,207,16,Approved
+208,208,48,Rejected
+209,209,267,Rejected
+210,210,396,Approved
+211,211,175,Partially Approved
+212,212,34,Rejected
+213,213,77,Approved
+214,214,284,Approved
+215,215,58,Pending
+216,216,162,Approved
+217,217,143,Partially Approved
+218,218,19,Pending
+219,219,167,Pending
+220,220,359,Partially Approved
+221,221,96,Rejected
+222,222,454,Rejected
+223,223,390,Partially Approved
+224,224,479,Rejected
+225,225,37,Pending
+226,226,446,Partially Approved
+227,227,253,Approved
+228,228,440,Partially Approved
+229,229,43,Approved
+230,230,6,Partially Approved
+231,231,336,Partially Approved
+232,232,216,Partially Approved
+233,233,356,Pending
+234,234,89,Partially Approved
+235,235,242,Rejected
+236,236,436,Approved
+237,237,347,Approved
+238,238,319,Partially Approved
+239,239,412,Pending
+240,240,221,Pending
+241,241,269,Partially Approved
+242,242,231,Partially Approved
+243,243,276,Partially Approved
+244,244,432,Rejected
+245,245,345,Rejected
+246,246,259,Partially Approved
+247,247,212,Approved
+248,248,312,Pending
+249,249,264,Pending
+250,250,169,Approved
+251,251,196,Approved
+252,252,150,Approved
+253,253,308,Approved
+254,254,161,Rejected
+255,255,44,Pending
+256,256,303,Pending
+257,257,269,Approved
+258,258,344,Partially Approved
+259,259,252,Partially Approved
+260,260,164,Rejected
+261,261,429,Partially Approved
+262,262,296,Approved
+263,263,342,Partially Approved
+264,264,492,Approved
+265,265,406,Approved
+266,266,11,Approved
+267,267,114,Rejected
+268,268,117,Approved
+269,269,294,Partially Approved
+270,270,53,Pending
+271,271,488,Pending
+272,272,321,Partially Approved
+273,273,333,Rejected
+274,274,343,Approved
+275,275,107,Partially Approved
+276,276,104,Approved
+277,277,4,Approved
+278,278,253,Partially Approved
+279,279,432,Rejected
+280,280,405,Pending
+281,281,444,Approved
+282,282,255,Partially Approved
+283,283,261,Pending
+284,284,356,Rejected
+285,285,337,Partially Approved
+286,286,362,Rejected
+287,287,302,Approved
+288,288,32,Rejected
+289,289,324,Approved
+290,290,466,Pending
+291,291,96,Partially Approved
+292,292,313,Pending
+293,293,91,Approved
+294,294,66,Partially Approved
+295,295,56,Approved
+296,296,166,Pending
+297,297,23,Approved
+298,298,38,Partially Approved
+299,299,235,Pending
+300,300,278,Partially Approved
+301,301,63,Pending
+302,302,244,Partially Approved
+303,303,235,Pending
+304,304,298,Rejected
+305,305,277,Partially Approved
+306,306,336,Partially Approved
+307,307,39,Rejected
+308,308,451,Rejected
+309,309,186,Rejected
+310,310,20,Rejected
+311,311,320,Rejected
+312,312,161,Pending
+313,313,47,Partially Approved
+314,314,222,Rejected
+315,315,253,Rejected
+316,316,325,Partially Approved
+317,317,391,Partially Approved
+318,318,300,Approved
+319,319,374,Partially Approved
+320,320,262,Partially Approved
+321,321,86,Partially Approved
+322,322,427,Partially Approved
+323,323,138,Partially Approved
+324,324,151,Approved
+325,325,341,Pending
+326,326,438,Partially Approved
+327,327,41,Rejected
+328,328,4,Rejected
+329,329,222,Partially Approved
+330,330,209,Rejected
+331,331,436,Partially Approved
+332,332,236,Pending
+333,333,396,Partially Approved
+334,334,499,Pending
+335,335,161,Pending
+336,336,118,Approved
+337,337,187,Rejected
+338,338,423,Partially Approved
+339,339,251,Rejected
+340,340,208,Approved
+341,341,183,Rejected
+342,342,489,Approved
+343,343,432,Partially Approved
+344,344,428,Rejected
+345,345,96,Partially Approved
+346,346,263,Partially Approved
+347,347,142,Partially Approved
+348,348,97,Approved
+349,349,421,Partially Approved
+350,350,135,Approved
+351,351,183,Approved
+352,352,155,Partially Approved
+353,353,44,Approved
+354,354,247,Pending
+355,355,329,Rejected
+356,356,63,Pending
+357,357,94,Rejected
+358,358,206,Approved
+359,359,180,Approved
+360,360,49,Rejected
+361,361,364,Partially Approved
+362,362,32,Rejected
+363,363,481,Approved
+364,364,331,Rejected
+365,365,289,Approved
+366,366,43,Partially Approved
+367,367,418,Pending
+368,368,2,Pending
+369,369,113,Approved
+370,370,263,Pending
+371,371,186,Pending
+372,372,407,Pending
+373,373,218,Partially Approved
+374,374,279,Rejected
+375,375,148,Pending
+376,376,61,Partially Approved
+377,377,314,Pending
+378,378,229,Approved
+379,379,18,Approved
+380,380,302,Approved
+381,381,249,Rejected
+382,382,297,Partially Approved
+383,383,22,Approved
+384,384,147,Rejected
+385,385,30,Approved
+386,386,323,Rejected
+387,387,96,Pending
+388,388,227,Pending
+389,389,68,Partially Approved
+390,390,377,Rejected
+391,391,120,Approved
+392,392,188,Partially Approved
+393,393,31,Rejected
+394,394,52,Pending
+395,395,165,Partially Approved
+396,396,396,Approved
+397,397,125,Pending
+398,398,381,Approved
+399,399,459,Partially Approved
+400,400,415,Approved
+401,401,302,Pending
+402,402,235,Pending
+403,403,191,Pending
+404,404,20,Pending
+405,405,219,Rejected
+406,406,40,Rejected
+407,407,354,Pending
+408,408,375,Approved
+409,409,430,Approved
+410,410,83,Pending
+411,411,93,Approved
+412,412,242,Partially Approved
+413,413,126,Pending
+414,414,58,Rejected
+415,415,92,Pending
+416,416,323,Pending
+417,417,479,Partially Approved
+418,418,245,Approved
+419,419,138,Rejected
+420,420,380,Rejected
+421,421,140,Pending
+422,422,310,Pending
+423,423,251,Pending
+424,424,176,Approved
+425,425,142,Pending
+426,426,6,Rejected
+427,427,25,Rejected
+428,428,472,Partially Approved
+429,429,329,Rejected
+430,430,151,Pending
+431,431,4,Partially Approved
+432,432,356,Rejected
+433,433,471,Pending
+434,434,292,Approved
+435,435,8,Partially Approved
+436,436,428,Partially Approved
+437,437,460,Pending
+438,438,232,Rejected
+439,439,77,Partially Approved
+440,440,237,Partially Approved
+441,441,70,Pending
+442,442,30,Pending
+443,443,411,Pending
+444,444,126,Partially Approved
+445,445,218,Pending
+446,446,95,Partially Approved
+447,447,387,Rejected
+448,448,328,Partially Approved
+449,449,143,Rejected
+450,450,294,Pending
+451,451,429,Partially Approved
+452,452,218,Approved
+453,453,238,Rejected
+454,454,393,Partially Approved
+455,455,50,Approved
+456,456,457,Rejected
+457,457,456,Rejected
+458,458,374,Partially Approved
+459,459,121,Partially Approved
+460,460,411,Partially Approved
+461,461,195,Partially Approved
+462,462,464,Approved
+463,463,320,Pending
+464,464,42,Approved
+465,465,61,Rejected
+466,466,416,Rejected
+467,467,234,Partially Approved
+468,468,189,Approved
+469,469,337,Pending
+470,470,145,Partially Approved
+471,471,337,Rejected
+472,472,373,Partially Approved
+473,473,27,Approved
+474,474,95,Rejected
+475,475,65,Partially Approved
+476,476,145,Rejected
+477,477,371,Partially Approved
+478,478,482,Partially Approved
+479,479,442,Partially Approved
+480,480,143,Partially Approved
+481,481,210,Approved
+482,482,203,Approved
+483,483,478,Partially Approved
+484,484,410,Rejected
+485,485,43,Rejected
+486,486,33,Approved
+487,487,133,Partially Approved
+488,488,229,Partially Approved
+489,489,345,Rejected
+490,490,486,Approved
+491,491,178,Approved
+492,492,269,Pending
+493,493,362,Approved
+494,494,191,Rejected
+495,495,475,Pending
+496,496,144,Approved
+497,497,432,Partially Approved
+498,498,284,Rejected
+499,499,95,Pending
+500,500,225,Partially Approved

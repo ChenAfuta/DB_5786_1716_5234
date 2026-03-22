@@ -1,0 +1,10 @@
+-- ==========================================
+-- dropTables.sql
+-- ==========================================
+
+DROP TABLE IF EXISTS INSURANCE_CLAIM;
+DROP TABLE IF EXISTS REFUND;
+DROP TABLE IF EXISTS PAYMENT;
+DROP TABLE IF EXISTS INVOICE_ITEM;
+DROP TABLE IF EXISTS INVOICE;
+DROP TABLE IF EXISTS BILLING_STAFF;

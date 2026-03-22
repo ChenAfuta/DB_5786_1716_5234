@@ -1,0 +1,130 @@
+Billing & Finance Division
+1. Invoice Management Screen
+
+Purpose:
+This screen is designed to allow billing staff to manage invoices within the hospital system. It provides a centralized view of all invoices and enables efficient tracking and management of billing records.
+
+Displayed Data:
+
+invoice_id
+patient_id
+admission_id
+invoice_date
+total_amount
+
+User Actions:
+
+Create a new invoice
+Edit an existing invoice
+Search for invoices by ID, patient, or date
+View detailed invoice information
+
+Related Database Tables:
+
+Invoice
+
+Explanation:
+Each row in the table represents a single invoice. The displayed attributes correspond directly to the fields defined in the Invoice table in the database schema.
+
+2. Invoice Details Screen
+
+Purpose:
+This screen displays detailed information about a selected invoice, including all services and charges associated with it.
+
+Displayed Data:
+
+invoice_id
+patient_id
+admission_id
+invoice_date
+total_amount
+
+Invoice Items Section:
+
+item_id
+invoice_id
+service_name
+cost
+
+User Actions:
+
+Add a new invoice item
+Edit an existing item
+Delete an item
+View the total cost of the invoice
+
+Related Database Tables:
+
+Invoice
+Invoice_Item
+
+Explanation:
+This screen represents the one-to-many relationship between Invoice and Invoice_Item, where a single invoice may contain multiple service entries.
+
+3. Payments and Refunds Screen
+
+Purpose:
+This screen is responsible for managing all financial transactions related to invoices, including payments and refunds.
+
+Displayed Data – Payments:
+
+payment_id
+invoice_id
+payment_date
+amount
+payment_method
+
+Displayed Data – Refunds:
+
+refund_id
+payment_id
+refund_date
+amount
+
+User Actions:
+
+Record a new payment
+View payment history
+Issue a refund for a payment
+View refund history
+
+Related Database Tables:
+
+Payment
+Refund
+
+Explanation:
+This screen reflects the relationship between payments and refunds. Each payment may be associated with a refund, depending on the business logic of the system.
+
+4. Insurance Claims and Billing Staff Screen
+
+Purpose:
+This screen manages insurance claim processes and billing staff assignments within the billing system.
+
+Displayed Data – Insurance Claims:
+
+claim_id
+invoice_id
+insurance_id
+claim_status
+
+Displayed Data – Billing Staff:
+
+billing_staff_id
+staff_id
+role
+
+User Actions:
+
+Create a new insurance claim
+Update claim status
+Assign billing staff to tasks
+Manage staff roles
+
+Related Database Tables:
+
+Insurance_Claim
+Billing_Staff
+
+Explanation:
+This screen integrates two related aspects of billing operations: insurance claim handling and staff management. It ensures that each claim is tracked and that responsibilities are assigned to appropriate staff members.
