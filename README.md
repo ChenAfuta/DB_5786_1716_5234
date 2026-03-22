@@ -33,8 +33,9 @@ The main functionalities include:
 - Assigning billing staff roles
 
 ## System Screens (AI Generated)
-
+https://ai.studio/apps/ff1c6d46-d62f-40b6-a2b2-a5877b81b10b
 ### Invoice Management
+
 ![Invoice](stage_1\SystemSpecification\screen1.png)
 
 ### Invoice Details
