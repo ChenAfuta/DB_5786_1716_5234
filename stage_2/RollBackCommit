@@ -1,0 +1,66 @@
+/* =========================================================
+   RollbackCommit.sql
+   Stage B - ROLLBACK and COMMIT examples
+   ========================================================= */
+
+
+/* =========================================================
+   Part 1 - UPDATE + ROLLBACK
+   ========================================================= */
+
+-- Show database state before update
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 1;
+
+-- Start transaction
+BEGIN;
+
+-- Update database
+UPDATE billing_staff
+SET role = 'Billing Clerk'
+WHERE billing_staff_id = 1;
+
+-- Show database state after update
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 1;
+
+-- Cancel the update
+ROLLBACK;
+
+-- Show that database returned to previous state
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 1;
+
+
+/* =========================================================
+   Part 2 - UPDATE + COMMIT
+   ========================================================= */
+
+-- Show database state before update
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 2;
+
+-- Start transaction
+BEGIN;
+
+-- Update database
+UPDATE billing_staff
+SET role = 'Cashier'
+WHERE billing_staff_id = 2;
+
+-- Show database state after update
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 2;
+
+-- Save the update permanently
+COMMIT;
+
+-- Show that database state remains changed
+SELECT billing_staff_id, role
+FROM billing_staff
+WHERE billing_staff_id = 2;
