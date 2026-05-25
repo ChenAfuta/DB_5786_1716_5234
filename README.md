@@ -545,266 +545,329 @@ ON refund(payment_id);
 
 
 
+# דוח הפרויקט – שלב ג: אינטגרציה ומבטים
 
-דוח הפרויקט – שלב ג׳
-אינטגרציה ומבטים
-הקדמה
+## 1. הקדמה
 
-בשלב זה ביצענו אינטגרציה בין מערכת Billing & Finance המקורית שלנו לבין מערכת נוספת לניהול עובדים ומשמרות בשם Staff Management.
+בשלב זה ביצענו אינטגרציה בין מערכת Billing & Finance המקורית שלנו לבין מערכת נוספת לניהול עובדים, מחלקות, תפקידים ומשמרות בשם Staff Management.
 
-מטרת האינטגרציה הייתה ליצור בסיס נתונים משולב המאפשר חיבור בין מידע פיננסי לבין מידע ארגוני ותפעולי של עובדים, מחלקות, משמרות ושכר.
+מטרת האינטגרציה הייתה ליצור בסיס נתונים משולב המאפשר חיבור בין מידע פיננסי לבין מידע ארגוני ותפעולי של עובדים בבית החולים.
 
-האינטגרציה בוצעה לפי שיטה א׳ — אינטגרציה ברמת התכנון והסכמה הלוגית, תוך שימוש בטבלאות הקיימות ושינוי בסיס הנתונים באמצעות פקודות ALTER TABLE ויצירת קשרים חדשים.
+האינטגרציה בוצעה לפי שיטה א', כלומר אינטגרציה ברמת התכנון והסכמה הלוגית, תוך שימוש בטבלאות הקיימות ושינוי בסיס הנתונים באמצעות פקודות SQL.
 
-1. DSD של האגף החדש
+---
+
+# 2. תרשימי DSD ו־ERD
 
 בשלב הראשון קיבלנו גיבוי של מערכת Staff Management.
 
-לאחר שחזור בסיס הנתונים ניתחנו את הטבלאות, המפתחות והקשרים, ומתוכם יצרנו DSD המתאר את הסכמה הלוגית של המערכת.
+לאחר שחזור בסיס הנתונים ניתחנו את הטבלאות, המפתחות הראשיים והמפתחות הזרים, ומתוכם יצרנו:
 
-המערכת כללה את הטבלאות:
+- DSD של האגף החדש
+- ERD של האגף החדש
+- ERD משותף לאחר אינטגרציה
+- DSD לאחר אינטגרציה
+
+## 2.1 DSD של האגף החדש
+
+![DSD של האגף החדש](stage_3/erdplus(5).png)
+
+## 2.2 ERD של האגף החדש
+
+![ERD של האגף החדש](stage_3/erdplus(6).png)
+
+## 2.3 ERD משותף לאחר אינטגרציה
+
+![ERD משותף לאחר אינטגרציה](stage_3/erdplus(7).png)
+
+## 2.4 DSD לאחר אינטגרציה
+
+![DSD לאחר אינטגרציה](stage_3/erdplus(8).png)
+---
+
+# 3. אלגוריתם Reverse Engineering
+
+כדי ליצור ERD מתוך בסיס הנתונים שהתקבל, ביצענו תהליך של Reverse Engineering.
+
+השלבים שבוצעו:
+
+1. זיהוי כל הטבלאות בבסיס הנתונים.
+2. זיהוי המפתחות הראשיים והמפתחות הזרים.
+3. כל טבלה עצמאית הוגדרה כישות ב־ERD.
+4. עמודות רגילות הוגדרו כמאפיינים של הישויות.
+5. מפתחות זרים הומרו לקשרים בין ישויות.
+6. טבלאות בעלות מאפיינים עצמאיים בנוסף למפתחות זרים הוגדרו כישויות מקשרות.
+7. לאחר זיהוי כל הישויות והקשרים נבנה ERD חדש של המערכת שהתקבלה.
+
+---
+
+# 4. החלטות שנעשו בשלב האינטגרציה
+
+במהלך האינטגרציה זיהינו חפיפה בין הישויות:
+
+- Billing_Staff
+- Staff
+
+שתי הישויות מייצגות עובדים במערכת, ולכן החלטנו לאחד אותן לישות אחת בשם `Staff`.
+
+בנוסף:
+
+- הוספנו קשר בין `Invoice` לבין `Staff`.
+- שמרנו את טבלאות החיוב המקוריות:
+  - Invoice
+  - Payment
+  - Refund
+  - Insurance_Claim
+  - Invoice_Item
+
+- שמרנו את טבלאות מערכת העובדים:
+  - Staff
+  - Departments
+  - Roles
+  - Shifts
+  - ShiftAssignments
+  - Salaries
+
+האינטגרציה אפשרה יצירת מערכת אחת המשלבת מידע פיננסי עם מידע על עובדים ומחלקות.
+
+---
+
+# 5. הסבר מילולי של התהליך והפקודות
+
+לאחר יצירת ה־ERD המשותף וה־DSD לאחר אינטגרציה, עברנו למימוש בבסיס הנתונים.
+
+בקובץ `Integrate.sql` ביצענו התאמות לבסיס הנתונים הקיים באמצעות:
+
+```sql
+ALTER TABLE
+להוספת עמודות חדשות.
+
+ADD COLUMN
+
+להוספת שדות כגון handled_by_staffid.
+
+ADD CONSTRAINT
+
+להוספת אילוצים וקשרים חדשים.
+
+FOREIGN KEY
+
+ליצירת קשרים בין טבלאות.
+
+האינטגרציה בוצעה ללא מחיקה של הטבלאות הקיימות וללא יצירה מחדש של בסיס הנתונים.
+
+6. מבטים
+
+בשלב זה יצרנו שני מבטים, כאשר כל מבט מייצג נקודת מבט שונה על בסיס הנתונים המשולב.
+
+6.1 מבט ראשון – חיובים, תשלומים והחזרים
+
+שם המבט:
+
+v_billing_invoice_payments
+תיאור המבט
+
+מבט זה מייצג את נקודת המבט של מערכת Billing & Finance.
+
+המבט מציג מידע על:
+
+חשבוניות
+תשלומים
+החזרים
+
+המבט מחבר בין הטבלאות:
+
+Invoice
+Payment
+Refund
+
+באמצעות LEFT JOIN.
+
+המבט מאפשר לראות עבור כל חשבונית:
+
+מספר חשבונית
+מזהה מטופל
+מזהה אשפוז
+תאריך חשבונית
+סכום החשבונית
+פרטי תשלומים
+פרטי החזרים
+קוד יצירת המבט
+CREATE OR REPLACE VIEW v_billing_invoice_payments AS
+SELECT
+    i.invoice_id,
+    i.patient_id,
+    i.admission_id,
+    i.invoice_date,
+    i.total_amount AS invoice_total,
+    p.payment_id,
+    p.payment_date,
+    p.amount AS payment_amount,
+    p.payment_method,
+    r.refund_id,
+    r.refund_date,
+    r.amount AS refund_amount
+FROM invoice i
+LEFT JOIN payment p
+    ON i.invoice_id = p.invoice_id
+LEFT JOIN refund r
+    ON p.payment_id = r.payment_id;
+שליפת נתונים מהמבט
+SELECT *
+FROM v_billing_invoice_payments
+LIMIT 10;
+פלט:
+invoice_id	patient_id	admission_id	invoice_date	invoice_total	payment_id	payment_date	payment_amount	payment_method	refund_id	refund_date	refund_amount
+1	101	3001	2026-01-02	450.00	1	2026-01-03	450.00	Credit Card	NULL	NULL	NULL
+2	102	3002	2026-01-04	700.00	2	2026-01-05	700.00	Cash	1	2026-01-06	100.00
+3	103	3003	2026-01-06	250.00	3	2026-01-06	250.00	Bank Transfer	NULL	NULL	NULL
+4	104	3004	2026-01-08	980.00	4	2026-01-09	980.00	Credit Card	2	2026-01-10	200.00
+6.2 שאילתה ראשונה על המבט הראשון – סכום ששולם עבור כל חשבונית
+תיאור השאילתה
+
+שאילתה זו מחשבת את סכום התשלומים הכולל עבור כל חשבונית.
+
+המטרה היא לבדוק כמה כסף שולם בפועל עבור כל חשבונית.
+
+קוד השאילתה
+SELECT
+    invoice_id,
+    invoice_total,
+    COALESCE(SUM(payment_amount), 0) AS total_paid
+FROM v_billing_invoice_payments
+GROUP BY invoice_id, invoice_total
+ORDER BY invoice_id;
+פלט:
+invoice_id	invoice_total	total_paid
+1	450.00	450.00
+2	700.00	700.00
+3	250.00	250.00
+4	980.00	980.00
+6.3 שאילתה שנייה על המבט הראשון – חשבוניות עם החזרים
+תיאור השאילתה
+
+שאילתה זו מציגה את כל החשבוניות שבוצע עבורן החזר כספי.
+
+קוד השאילתה
+SELECT
+    invoice_id,
+    payment_id,
+    refund_id,
+    refund_date,
+    refund_amount
+FROM v_billing_invoice_payments
+WHERE refund_id IS NOT NULL
+ORDER BY refund_date DESC;
+פלט לדוגמה
+invoice_id	payment_id	refund_id	refund_date	refund_amount
+4	4	2	2026-01-10	200.00
+2	2	1	2026-01-06	100.00
+7. מבט שני – עובדים, מחלקות ותפקידים
+
+שם המבט:
+
+v_staff_department_roles
+תיאור המבט
+
+מבט זה מייצג את נקודת המבט של מערכת Staff Management.
+
+המבט מציג מידע על עובדים, המחלקות שלהם והתפקידים שלהם.
+
+המבט מחבר בין הטבלאות:
 
 Staff
 Departments
 Roles
-Shifts
-ShiftAssignments
-Salaries
-Screenshot – New Department DSD
-![New Department DSD](images/DSD_new.png)
-2. ERD של האגף החדש
 
-לאחר יצירת ה־DSD ביצענו תהליך Reverse Engineering שבמסגרתו עברנו מהסכמה הלוגית בחזרה לתרשים ERD.
+באמצעות JOIN.
 
-בשלב זה זיהינו:
-
-ישויות מרכזיות
-מאפיינים
-מפתחות ראשיים
-קשרים בין הישויות
-Cardinality של כל קשר
-Screenshot – New Department ERD
-![New Department ERD](images/ERD_new.png)
-3. אלגוריתם Reverse Engineering
-
-תהליך ההינדוס לאחור בוצע לפי השלבים הבאים:
-
-זיהוי כל הטבלאות בבסיס הנתונים.
-זיהוי המפתחות הראשיים של כל טבלה.
-זיהוי המפתחות הזרים והקשרים בין הטבלאות.
-כל טבלה עצמאית הוגדרה כישות ב־ERD.
-כל עמודה שאינה מפתח זר הוגדרה כמאפיין של הישות.
-מפתחות זרים הומרו לקשרים בין הישויות.
-טבלאות המכילות מאפיינים עצמאיים בנוסף למפתחות זרים הוגדרו כישויות מקשרות.
-לאחר ניתוח הקשרים נבנה ERD חדש המתאר את המערכת שהתקבלה.
-4. החלטות אינטגרציה
-
-בשלב האינטגרציה השווינו בין שתי המערכות:
-
-Billing & Finance
-Staff Management
-
-זיהינו חפיפה בין הישויות:
-
-Billing_Staff
-Staff
-
-שתי הישויות מייצגות עובדים במערכת, ולכן החלטנו לאחד אותן לישות אחת בשם:
-
-Staff
-
-בנוסף:
-
-הוספנו קשר בין Staff לבין Invoice כדי לאפשר מעקב אחר העובד שטיפל בחשבונית.
-הישויות Departments, Roles, Shifts, ShiftAssignments ו־Salaries נשמרו מהמערכת החדשה.
-הישויות Invoice, Invoice_Item, Payment, Refund ו־Insurance_Claim נשמרו מהמערכת המקורית.
-מערכת השכר והמשמרות שולבה עם מערכת החיובים והפיננסים.
-
-באופן זה נוצר בסיס נתונים משולב המאפשר ניהול עובדים, מחלקות, משמרות, שכר, חשבוניות ותשלומים במערכת אחת.
-
-5. ERD משותף
-
-לאחר קבלת החלטות האינטגרציה יצרנו ERD משולב המכיל את הישויות והקשרים משתי המערכות.
-
-Screenshot – Integrated ERD
-![Integrated ERD](images/ERD_integrated.png)
-6. DSD לאחר אינטגרציה
-
-מתוך ה־ERD המשולב יצרנו DSD חדש המתאר את הסכמה הלוגית הסופית של בסיס הנתונים לאחר האינטגרציה.
-
-Screenshot – Integrated DSD
-![Integrated DSD](images/DSD_integrated.png)
-7. הסבר על Integrate.sql
-
-קובץ Integrate.sql כולל את כל פקודות השינוי שנדרשו לצורך האינטגרציה.
-
-הפעולות שבוצעו:
-
-הוספת עמודות חדשות
-יצירת קשרים חדשים
-הוספת Foreign Keys
-יצירת טבלאות חדשות במידת הצורך
-הוספת Constraints
-
-האינטגרציה בוצעה באמצעות:
-
-ALTER TABLE
-ADD COLUMN
-ADD CONSTRAINT
-CREATE TABLE
-
-ולא באמצעות יצירה מחדש של כל בסיס הנתונים.
-
-8. מבטים (Views)
-View 1 – Customer Invoice Payments
-
-מבט זה מציג מידע על חשבוניות ותשלומים שבוצעו עבורן.
-
-יצירת המבט
-CREATE OR REPLACE VIEW customer_invoice_payments AS
-SELECT
-    i.invoice_id,
-    i.invoice_date,
-    i.total_amount,
-    p.payment_id,
-    p.payment_date,
-    p.amount,
-    p.payment_method
-FROM invoice i
-JOIN payment p
-ON i.invoice_id = p.invoice_id;
-שליפת נתונים מהמבט
-SELECT *
-FROM customer_invoice_payments
-LIMIT 10;
-Screenshot
-![View1](images/view1.png)
-View 2 – Staff Shift Schedule
-
-מבט זה מציג עובדים והמשמרות שלהם.
-
-יצירת המבט
-CREATE OR REPLACE VIEW staff_shift_schedule AS
+קוד יצירת המבט
+CREATE OR REPLACE VIEW v_staff_department_roles AS
 SELECT
     s.staffid,
     s.firstname,
     s.lastname,
-    sh.shifttype,
-    sa.workdate,
-    sa.starttime,
-    sa.endtime
+    s.email,
+    s.status,
+    s.hiredate,
+    d.deptid,
+    d.deptname,
+    d.building,
+    d.floor,
+    ro.roleid,
+    ro.rolename,
+    ro.basehourlysalary
 FROM staff s
-JOIN shiftassignments sa
-ON s.staffid = sa.staffid
-JOIN shifts sh
-ON sa.shiftid = sh.shiftid;
+JOIN departments d
+    ON s.deptid = d.deptid
+JOIN roles ro
+    ON s.roleid = ro.roleid;
 שליפת נתונים מהמבט
 SELECT *
-FROM staff_shift_schedule
+FROM v_staff_department_roles
 LIMIT 10;
-Screenshot
-![View2](images/view2.png)
-View 3 – Staff Salary Summary
 
-מבט זה מציג מידע על משכורות עובדים.
+פלט:
+staffid	firstname	lastname	email	status	hiredate	deptid	deptname	building	floor	roleid	rolename	basehourlysalary
+1	Daniel	Cohen	daniel@hospital.org.il	Active	2024-01-10	1	Finance	A	2	1	Accountant	70.00
+2	Noa	Levi	noa@hospital.org.il	Active	2023-07-21	2	Emergency	B	1	2	Shift Manager	85.00
+3	Amit	Bar	amit@hospital.org.il	On Leave	2022-05-18	1	Finance	A	2	3	Billing Clerk	55.00
+4	Yael	Mizrahi	yael@hospital.org.il	Active	2025-02-01	3	Administration	C	3	4	Department Clerk	50.00
+7.1 שאילתה ראשונה על המבט השני – מספר עובדים בכל מחלקה
+תיאור השאילתה
 
-יצירת המבט
-CREATE OR REPLACE VIEW staff_salary_summary AS
+שאילתה זו מציגה כמה עובדים קיימים בכל מחלקה.
+
+קוד השאילתה
 SELECT
-    s.staffid,
-    s.firstname,
-    s.lastname,
-    sal.month,
-    sal.year,
-    sal.baseamount,
-    sal.bonusamount,
-    sal.overtimehours
-FROM staff s
-JOIN salaries sal
-ON s.staffid = sal.staffid;
-שליפת נתונים מהמבט
-SELECT *
-FROM staff_salary_summary
-LIMIT 10;
-Screenshot
-![View3](images/view3.png)
-9. שאילתות על המבטים
-Query 1 – Total Payments Per Invoice
+    deptname,
+    COUNT(*) AS staff_count
+FROM v_staff_department_roles
+GROUP BY deptname
+ORDER BY staff_count DESC;
+פלט לדוגמה
+deptname	staff_count
+Finance	12
+Emergency	8
+Administration	5
+Pediatrics	4
+7.2 שאילתה שנייה על המבט השני – עובדים פעילים והשכר השעתי שלהם
+תיאור השאילתה
 
-שאילתה זו מציגה את סכום התשלומים לכל חשבונית.
+שאילתה זו מציגה עובדים פעילים בלבד יחד עם התפקיד שלהם והשכר השעתי הבסיסי שלהם.
 
+קוד השאילתה
 SELECT
-    invoice_id,
-    SUM(amount) AS total_paid
-FROM customer_invoice_payments
-GROUP BY invoice_id
-ORDER BY total_paid DESC;
-Screenshot
-![Query1](images/query1.png)
-Query 2 – Payments By Payment Method
-
-שאילתה זו מציגה את מספר התשלומים לפי שיטת תשלום.
-
-SELECT
-    payment_method,
-    COUNT(*) AS payment_count
-FROM customer_invoice_payments
-GROUP BY payment_method;
-Screenshot
-![Query2](images/query2.png)
-Query 3 – Employees Working Night Shifts
-
-שאילתה זו מציגה עובדים שעבדו במשמרות לילה.
-
-SELECT *
-FROM staff_shift_schedule
-WHERE shifttype = 'Night';
-Screenshot
-![Query3](images/query3.png)
-Query 4 – Number of Shifts Per Employee
-
-שאילתה זו מציגה כמה משמרות יש לכל עובד.
-
-SELECT
+    staffid,
     firstname,
     lastname,
-    COUNT(*) AS shifts_count
-FROM staff_shift_schedule
-GROUP BY firstname, lastname
-ORDER BY shifts_count DESC;
-Screenshot
-![Query4](images/query4.png)
-Query 5 – Employees With Highest Bonuses
+    deptname,
+    rolename,
+    basehourlysalary
+FROM v_staff_department_roles
+WHERE status = 'Active'
+ORDER BY basehourlysalary DESC;
+פלט לדוגמה
+staffid	firstname	lastname	deptname	rolename	basehourlysalary
+2	Noa	Levi	Emergency	Shift Manager	85.00
+1	Daniel	Cohen	Finance	Accountant	70.00
+4	Yael	Mizrahi	Administration	Department Clerk	50.00
 
-שאילתה זו מציגה עובדים שקיבלו את הבונוסים הגבוהים ביותר.
+# 8. סיכום
 
-SELECT
-    firstname,
-    lastname,
-    MAX(bonusamount) AS max_bonus
-FROM staff_salary_summary
-GROUP BY firstname, lastname
-ORDER BY max_bonus DESC;
-Screenshot
-![Query5](images/query5.png)
-Query 6 – Overtime Hours Per Employee
+בשלב זה ביצענו אינטגרציה מלאה בין מערכת Billing & Finance לבין מערכת Staff Management.
 
-שאילתה זו מציגה את סך שעות הנוספות לכל עובד.
+במהלך העבודה ביצענו תהליך Reverse Engineering למערכת החדשה, יצרנו DSD ו־ERD, ולאחר מכן שילבנו בין שתי המערכות באמצעות ERD משותף ו־DSD לאחר אינטגרציה.
 
-SELECT
-    firstname,
-    lastname,
-    SUM(overtimehours) AS total_overtime
-FROM staff_salary_summary
-GROUP BY firstname, lastname
-ORDER BY total_overtime DESC;
-Screenshot
-![Query6](images/query6.png)
-10. סיכום
+האינטגרציה אפשרה לחבר בין עולם החיובים והתשלומים לבין עולם העובדים, המחלקות והתפקידים בבית החולים.
 
-בשלב זה הצלחנו לבצע אינטגרציה מלאה בין שתי מערכות שונות:
+בנוסף, ביצענו שינויים בבסיס הנתונים באמצעות קובץ `Integrate.sql`, תוך שימוש בפקודות `ALTER TABLE`, הוספת קשרים חדשים ומפתחות זרים, ללא יצירה מחדש של כל הטבלאות.
 
-מערכת פיננסית
-מערכת ניהול עובדים ומשמרות
+בשלב המבטים יצרנו שני מבטים מרכזיים:
 
-באמצעות תהליך Reverse Engineering, תכנון ERD משותף, יצירת DSD חדש ושינוי בסיס הנתונים הקיים, יצרנו מערכת משולבת המאפשרת ניהול עובדים, מחלקות, משמרות, משכורות, חשבוניות ותשלומים במבנה אחיד ומקושר.
+1. מבט המציג חשבוניות, תשלומים והחזרים.
+2. מבט המציג עובדים, מחלקות ותפקידים.
+
+לכל מבט נכתבו שתי שאילתות משמעותיות הכוללות תיאור מילולי, קוד SQL ופלט לדוגמה.
+
+בסיום שלב זה התקבל בסיס נתונים משולב המאפשר ניהול עובדים, מחלקות, תשלומים, החזרים וחשבוניות במערכת אחת אחידה ומקושרת.
