@@ -68,6 +68,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Create the trigger on INSERT
+DROP TRIGGER IF EXISTS tr_audit_payment_insert ON PAYMENT;
+DROP TRIGGER IF EXISTS tr_update_invoice_status ON INVOICE;
 CREATE TRIGGER tr_audit_payment_insert
 AFTER INSERT ON PAYMENT
 FOR EACH ROW
@@ -138,6 +140,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Create the trigger on UPDATE
+DROP TRIGGER IF EXISTS tr_audit_payment_insert ON PAYMENT;
+DROP TRIGGER IF EXISTS tr_update_invoice_status ON INVOICE;
 CREATE TRIGGER tr_update_invoice_status
 AFTER UPDATE ON INVOICE
 FOR EACH ROW

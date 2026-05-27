@@ -1,6 +1,6 @@
 -- ==========================================
 -- Stage 4: Alter Table Modifications
--- Schema modifications and new columns for Stage 4 processing
+-- Safe to run multiple times
 -- ==========================================
 
 -- Add processing_status column to INVOICE table
@@ -15,11 +15,11 @@ ADD COLUMN IF NOT EXISTS processed_date DATE;
 ALTER TABLE INVOICE
 ADD COLUMN IF NOT EXISTS processing_staff_id INT;
 
--- Add refund_reason column to REFUND table (if not exists from stage_2)
+-- Add refund_reason column to REFUND table
 ALTER TABLE REFUND
 ADD COLUMN IF NOT EXISTS refund_reason VARCHAR(255);
 
--- Add claim_date column to INSURANCE_CLAIM table (if not exists from stage_2)
+-- Add claim_date column to INSURANCE_CLAIM table
 ALTER TABLE INSURANCE_CLAIM
 ADD COLUMN IF NOT EXISTS claim_date DATE;
 
@@ -31,19 +31,47 @@ ADD COLUMN IF NOT EXISTS claim_processed_date DATE;
 ALTER TABLE PAYMENT
 ADD COLUMN IF NOT EXISTS payment_status VARCHAR(30) DEFAULT 'Completed';
 
--- Constraint: processing_status must be valid
-ALTER TABLE INVOICE
-ADD CONSTRAINT IF NOT EXISTS chk_processing_status
-CHECK (processing_status IN ('Pending', 'Processing', 'Completed', 'Failed'));
+-- Add chk_processing_status only if it does not already exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'chk_processing_status'
+    ) THEN
+        ALTER TABLE INVOICE
+        ADD CONSTRAINT chk_processing_status
+        CHECK (processing_status IN ('Pending', 'Processing', 'Completed', 'Failed'));
+    END IF;
+END;
+$$;
 
--- Constraint: payment_status must be valid
-ALTER TABLE PAYMENT
-ADD CONSTRAINT IF NOT EXISTS chk_payment_status
-CHECK (payment_status IN ('Pending', 'Completed', 'Refunded', 'Failed'));
+-- Add chk_payment_status only if it does not already exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'chk_payment_status'
+    ) THEN
+        ALTER TABLE PAYMENT
+        ADD CONSTRAINT chk_payment_status
+        CHECK (payment_status IN ('Pending', 'Completed', 'Refunded', 'Failed'));
+    END IF;
+END;
+$$;
 
--- Constraint: processed_date cannot be in the future
-ALTER TABLE INVOICE
-ADD CONSTRAINT IF NOT EXISTS chk_processed_date_not_future
-CHECK (processed_date IS NULL OR processed_date <= CURRENT_DATE);
-
-COMMIT;
+-- Add chk_processed_date_not_future only if it does not already exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'chk_processed_date_not_future'
+    ) THEN
+        ALTER TABLE INVOICE
+        ADD CONSTRAINT chk_processed_date_not_future
+        CHECK (processed_date IS NULL OR processed_date <= CURRENT_DATE);
+    END IF;
+END;
+$$;
